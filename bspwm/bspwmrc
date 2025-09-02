@@ -30,7 +30,8 @@ bspc desktop -f next.local
 bspc rule -a "*" state=tiled
 export COLOR_NAV=#1C2541
 export COLOR_ACC=#007C77
-./.config/polybar/scripts/get_color.sh &
+~/.config/polybar/scripts/get_color.sh &
+~/.config/script/set_wallpaper.sh
 
 sxhkd >>/tmp/log_nico/sxhkdrc.log 2>&1 &
 compfy >>/tmp/log_nico/compfy.log 2>&1 &
