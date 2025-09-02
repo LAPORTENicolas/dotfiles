@@ -1,14 +1,24 @@
 #!/bin/sh
 
 sleep 1
-xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary
-xrandr --output eDP-1 --off
-#xrandr --output HDMI-2-0 --mode 1920x1080 --rate 144 --primary
-#xrandr --output HDMI-2-1 --mode 1920x1080 --rate 144 --primary
-#xrandr --output eDP1 --on
 
-bspc monitor HDMI-1-0 -a 1 2 3 4 5 6 7 8 9
-#bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8
+nvidia-smi >>/tmp/log_nico/graphic.log
+export NVIDIA_ENABLE=$(nvidia-smi | grep /Xorg | echo $?)
+echo "NVIDIA_ENABLE=$NVIDIA_ENABLE" >>/tmp/log_nico/graphic.log
+
+sleep 1
+
+if [ $NVIDIA_ENABLE -eq 0 ]; then
+	xrandr --output HDMI-0 --mode 1920x1080 --rate 144 --primary
+	xrandr --output eDP-1-1 --off
+	bspc monitor HDMI-0 -a 1 2 3 4 5 6 7 8 9
+	echo "Load polybar/xrandr/bspc nvidia" >>/tmp/log_nico/graphic.log
+else
+	xrandr --output HDMI-1-0 --mode 1920x1080 --rate 144 --primary
+	xrandr --output eDP-1 --off
+	bspc monitor HDMI-1-0 -a 1 2 3 4 5 6 7 8 9
+	echo "Load polybar/xrandr/bspc intel" >>/tmp/log_nico/graphic.log
+fi
 
 bspc config automatic_scheme longest_side
 bspc config initial_polarity second_child
@@ -31,8 +41,19 @@ bspc rule -a "*" state=tiled
 export COLOR_NAV=#1C2541
 export COLOR_ACC=#007C77
 ~/.config/polybar/scripts/get_color.sh &
-~/.config/script/set_wallpaper.sh
+~/.config/script/set_wallpaper.sh &
+
+sleep 2
 
 sxhkd >>/tmp/log_nico/sxhkdrc.log 2>&1 &
 compfy >>/tmp/log_nico/compfy.log 2>&1 &
-polybar main >>/tmp/log_nico/polybar.log 2>&1 &
+
+sleep 2
+
+if [ $NVIDIA_ENABLE -eq 0 ]; then
+	polybar main_nvidia >>/tmp/log_nico/polybar.log 2>&1 &
+	echo "Load polybar nvidia" >>/tmp/log_nico/graphic.log
+else
+	polybar main >>/tmp/log_nico/polybar.log 2>&1 &
+	echo "Load polybar intel" >>/tmp/log_nico/graphic.log
+fi
