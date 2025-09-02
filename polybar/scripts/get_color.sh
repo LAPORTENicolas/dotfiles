@@ -1,38 +1,7 @@
 #!/bin/bash
 
-case $COLOR_R in
-1)
-	color="#ed4113"
-	feh --bg-center ~/.config/wallpapers/wall01.png
-	;;
-2)
-	feh --bg-center ~/.config/wallpapers/wall02.png
-	color="#ed0e3d"
-	;;
-3)
-	feh --bg-center ~/.config/wallpapers/wall03.png
-	color="#485ca5"
-	;;
-4)
-	feh --bg-center ~/.config/wallpapers/wall04.png
-	color="#FFFFFF"
-	;;
-5)
-	feh --bg-center ~/.config/wallpapers/wall05.png
-	color="#f98235"
-	;;
-6)
-	feh --bg-center ~/.config/wallpapers/wall06.png
-	color="#e48586"
-	;;
-7)
-	feh --bg-center ~/.config/wallpapers/wall08.png
-	color="#fc2635"
-	;;
-esac
-
-bspc config focused_border_color "$color"
-echo "/* Change la couleur de fond du contenu dans Firefox */
+echo "
+/* Change la couleur de fond du contenu dans Firefox */
 #main-window {
     background-color: #0D0F1A !important;
 }
@@ -61,7 +30,7 @@ toolbar, #urlbar {
 
 #nav-bar
 {
-  border-bottom: 2px solid $color !important;
+  border-bottom: 2px solid $COLOR_NAV !important;
 }
 
 tab[selected="true"]
@@ -75,10 +44,10 @@ tab[selected="true"]
 }
 */
 .tabbrowser-tab[selected="true"] .tab-background {
-	background-color: $color !important; /* Onglet actif */
+	background-color: $COLOR_NAV !important; /* Onglet actif */
     color: white !important; /* Texte de l'onglet actif */
-}" >~/.mozilla/firefox/zwdopfz5.default-release/chrome/userChrome.css
+}" >~/.mozilla/firefox/8pnfwddn.default-release/chrome/userChrome.css
 cat >~/.config/polybar/colors.ini <<EOL
 [color]
-color_primary = ${color}
+color_primary = $COLOR_NAV
 EOL
