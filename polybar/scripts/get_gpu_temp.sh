@@ -2,7 +2,7 @@
 
 temp=$(nvidia-smi | rg "MiB" | awk 'NR==1{print $3}' | sed 's/C//')
 
-if [ $temp -lt 50 ]; then
+if [ $temp -lt 63 ]; then
 	printf "%%{F#00E5E8}󰢮%%{F-}"
 elif [ $temp -lt 75 ]; then
 	printf "%%{F#F08A4B}󰢮%%{F-}"

@@ -11,7 +11,12 @@ connected_names=()
 for addr in $(bluetoothctl devices | awk '{print $2}'); do
 	if bluetoothctl info "$addr" | grep -q "Connected: yes"; then
 		name=$(bluetoothctl info "$addr" | awk -F': ' '/Name/ {print $2; exit}')
-		connected_names+=("${name:-$addr}")
+		name_tmp=$(echo "$name" | awk '{print $1}')
+		if [ "$name_tmp" == "Bose" ]; then
+			connected_names+=("🎧")
+		else
+			connected_names+=("${name:-$addr}")
+		fi
 	fi
 done
 
