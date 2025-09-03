@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-# Couleur (hex) pour Polybar
 COLOR="#2E41E8"
-
-# Tags Polybar
 SEPARATOR="%%{F$COLOR}  %%{F-}"
+
+timeout 2s bluetoothctl status >/dev/null 2>&1
+if [ $? -eq 124 ]; then
+	printf "%%{F#FE4A49} %%{F-}"
+	exit 0
+fi
 
 # Récupère les noms des périphériques connectés
 connected_names=()
@@ -22,7 +25,7 @@ done
 
 # Si aucun, on renvoie un message plus discret
 if [ ${#connected_names[@]} -eq 0 ]; then
-	echo "Bluetooth : aucun périphérique connecté%{F-}"
+	printf "$SEPARATOR"
 	exit 0
 fi
 

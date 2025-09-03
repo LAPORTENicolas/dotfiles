@@ -4,7 +4,7 @@ location="reims"
 
 # Récupérer la météo depuis wttr.in
 weather=0
-weather=$(curl -H 'Cache-control: no-cache' -H 'Pragma: no-cache' -s "wttr.in/$location?format=1&?T" | sed 's/ //')
+weather=$(curl -H 'Cache-control: no-cache' -H 'Pragma: no-cache' -s "wttr.in/$location?format=1&?T?sldkfhjklh" | sed 's/ //')
 temp=$(echo $weather | awk '{print $2}' | sed 's/°C//')
 let test=$temp
 if [ $test -lt 10 ]; then
