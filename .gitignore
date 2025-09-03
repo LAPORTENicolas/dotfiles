@@ -4,15 +4,12 @@ VirtualBox/
 alacritty/
 dconf/
 htop/
-kitty/
-nvim/
 pavucontrol.ini
 picom/
 pulse/
 shadow-preprod/
 shadow/
 sway/
-sxhkd/
 usage_history.json
 user-dirs.dirs
 user-dirs.locale
